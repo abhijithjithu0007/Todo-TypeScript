@@ -1,26 +1,40 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import './App.css'
+import { Input } from './Input'
+import { Button } from './Button'
+
+type Items = {
+  title: string,
+  id: string
+}
 
 function App() {
-  const [task, setTask] = useState(['nrgr', 'fehbfhe', 'hcvhgc'])
+  const [task, setTask] = useState<Items[]>([])
+  const [inputVal, setInputVal] = useState<string>('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setTask((prev) => [...prev, { title: inputVal.trim(), id: Date.now().toString() }])
+    setInputVal('')
+  }
+
+  const handleDelete = (item: string) => {
+    setTask((prev) => prev.filter((data) => data.id  !== item))
+  }
 
   return (
 
     <>
 
       <form action="" className=''>
-        <div className='flex text-center justify-center'>
-          <input className='p-3 bg-gray-300 rounded-md outline-none' placeholder='Add task Here . . . !' type="text" />
-        </div>
+        <Input inputVal={inputVal} setInputVal={setInputVal} />
+        <Button className='bg-green-400 w-[100px] p-3 m-6 rounded-lg'>Add</Button>
         <div>
-          <button className='bg-green-400 w-[100px] p-3 m-6 rounded-lg'>Add</button>
-        </div>
-        <div>
-          {task.map((item, key) => (
-            <div className='flex justify-center gap-' key={key}>
+          {task.map((item) => (
+            <div className='flex justify-center gap-' key={item.id}>
               <div className=' flex justify-between p-3 mt-2 bg-gray-300 w-[300px] rounded-lg'>
-                <p className='text-xl'>{item}</p>
-                <button className='bg-red-500 rounded-md p-2'>Delete</button>
+                <p className='text-xl'>{item.title}</p>
+                <Button onClick={() => handleDelete(item.id)}>Delete</Button>
               </div>
             </div>
           ))}
