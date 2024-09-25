@@ -23,10 +23,8 @@ function App() {
   }
 
   return (
-
     <>
-
-      <form action="" className=''>
+      <form onSubmit={handleSubmit}>
         <Input inputVal={inputVal} setInputVal={setInputVal} />
         <Button className='bg-green-400 w-[100px] p-3 m-6 rounded-lg'>Add</Button>
         <div>
@@ -40,7 +38,6 @@ function App() {
           ))}
         </div>
       </form>
-
     </>
   )
 }

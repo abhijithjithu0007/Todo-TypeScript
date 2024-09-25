@@ -2,6 +2,7 @@
 type Input={
     inputVal:string,
     setInputVal:React.Dispatch<React.SetStateAction<string>>
+    
 }
 
 export const Input = ({inputVal,setInputVal}:Input) => {
